@@ -1,8 +1,6 @@
 package vitos.pzza.authpart.service.impl;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vitos.pzza.authpart.entity.User;
 import vitos.pzza.authpart.payload.UserDto;
@@ -14,7 +12,6 @@ public class UserServiceImpl implements UserService {
 
     private ModelMapper mapper;
     private UserRepository userRepository;
-    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
     public UserServiceImpl(ModelMapper mapper, UserRepository userRepository) {
@@ -24,8 +21,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto registerUser(UserDto userDto) {
-        // encrypt the password
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         //convert DTO to entity
         User user = mapToEntity(userDto);
